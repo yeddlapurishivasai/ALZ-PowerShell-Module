@@ -74,6 +74,7 @@
     FunctionsToExport    = @(
         'Test-AcceleratorRequirement',
         'Deploy-Accelerator',
+        'New-Platform-Landing-Zone',
         'Grant-SubscriptionCreatorRole'
     )
 
