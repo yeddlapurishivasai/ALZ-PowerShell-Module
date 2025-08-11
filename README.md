@@ -34,6 +34,10 @@ Install-Module -Name ALZ
 Test-AcceleratorRequirement
 ```
 
+## PowerShell Gallery Publishing
+
+For information about publishing this module to the PowerShell Gallery, see the [PowerShell Gallery Publishing Guide](POWERSHELL-GALLERY-PUBLISHING.md).
+
 ## Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
