@@ -7,6 +7,6 @@
 version: 2
 updates:
   - package-ecosystem: "nuget"  # See documentation for possible values
-    directory: "/src/ALZ"  # Location of package manifests
+    directory: "/src/AMA.ALZ"  # Location of package manifests
     schedule:
       interval: "daily"

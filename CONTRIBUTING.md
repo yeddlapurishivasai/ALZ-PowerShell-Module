@@ -17,16 +17,16 @@ Install-Module -F Pester
 
 ```powershell
 # Build and test locally
-Remove-Module "ALZ" -Force
-Invoke-Build -File .\src\ALZ.build.ps1
+Remove-Module "AMA.ALZ" -Force
+Invoke-Build -File .\src\AMA.ALZ.build.ps1
 ```
 
 ## Commands to import a build locally
 
 ```powershell
 # Install the module locally
-Invoke-Build -File .\src\ALZ.build.ps1
-Import-Module .\src\Artifacts\ALZ.psd1 -Force
+Invoke-Build -File .\src\AMA.ALZ.build.ps1
+Import-Module .\src\Artifacts\AMA.ALZ.psd1 -Force
 ```
 
 ## How to do end to end local development with the bootstrap and starter modules
@@ -115,7 +115,7 @@ Run this from the VSCode terminal for the ALZ-PowerShell-Module repository:
 >IMPORTANT! - Make sure to update the input file with your settings for VCS, etc.
 
 ```pwsh
-Invoke-Build -File .\src\ALZ.build.ps1
+Invoke-Build -File .\src\AMA.ALZ.build.ps1
 
 $targetFolder = "dev"
 
@@ -140,7 +140,7 @@ Run this from the VSCode terminal for the ALZ-PowerShell-Module repository:
 >IMPORTANT! - Make sure to update the input file with your settings for VCS, etc.
 
 ```pwsh
-Invoke-Build -File .\src\ALZ.build.ps1
+Invoke-Build -File .\src\AMA.ALZ.build.ps1
 
 $targetFolder = "dev"
 
@@ -165,7 +165,7 @@ Run this from the VSCode terminal for the ALZ-PowerShell-Module repository:
 >IMPORTANT! - Make sure to update the input file with your settings for VCS, etc.
 
 ```pwsh
-Invoke-Build -File .\src\ALZ.build.ps1
+Invoke-Build -File .\src\AMA.ALZ.build.ps1
 
 $targetFolder = "dev"
 
@@ -190,7 +190,7 @@ Run this from the VSCode terminal for the ALZ-PowerShell-Module repository:
 >IMPORTANT! - Make sure to update the input file with your settings for VCS, etc.
 
 ```pwsh
-Invoke-Build -File .\src\ALZ.build.ps1
+Invoke-Build -File .\src\AMA.ALZ.build.ps1
 
 $targetFolder = "dev"
 $bootstrapConfigFolderTerraform = "$targetFolder/code/alz-terraform-accelerator/templates/platform_landing_zone/examples/full-multi-region"
@@ -218,7 +218,7 @@ Run this from the VSCode terminal for the ALZ-PowerShell-Module repository:
 >IMPORTANT! - Make sure to update the input file with your settings for VCS, etc.
 
 ```pwsh
-Invoke-Build -File .\src\ALZ.build.ps1
+Invoke-Build -File .\src\AMA.ALZ.build.ps1
 
 $targetFolder = "dev"
 $bootstrapConfigFolderTerraform = "$targetFolder/code/alz-terraform-accelerator/templates/platform_landing_zone/examples/full-multi-region"
@@ -246,7 +246,7 @@ Run this from the VSCode terminal for the ALZ-PowerShell-Module repository:
 >IMPORTANT! - Make sure to update the input file with your settings for VCS, etc.
 
 ```pwsh
-Invoke-Build -File .\src\ALZ.build.ps1
+Invoke-Build -File .\src\AMA.ALZ.build.ps1
 
 $targetFolder = "dev"
 $bootstrapConfigFolderTerraform = "$targetFolder/code/alz-terraform-accelerator/templates/platform_landing_zone/examples/full-multi-region"

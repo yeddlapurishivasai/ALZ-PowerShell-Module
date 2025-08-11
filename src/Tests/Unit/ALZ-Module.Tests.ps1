@@ -2,7 +2,7 @@ BeforeAll {
     #-------------------------------------------------------------------------
     Set-Location -Path $PSScriptRoot
     #-------------------------------------------------------------------------
-    $ModuleName = 'ALZ'
+    $ModuleName = 'AMA.ALZ'
     $PathToManifest = [System.IO.Path]::Combine('..', '..', $ModuleName, "$ModuleName.psd1")
     $PathToModule = [System.IO.Path]::Combine('..', '..', $ModuleName, "$ModuleName.psm1")
     #-------------------------------------------------------------------------
@@ -14,13 +14,13 @@ Describe 'Module Tests' -Tag Unit {
             { $script:manifestEval = Test-ModuleManifest -Path $PathToManifest } | Should -Not -Throw
             $? | Should -BeTrue
         } #manifestTest
-        It 'root module ALZ.psm1 should exist' {
+        It 'root module AMA.ALZ.psm1 should exist' {
             $PathToModule | Should -Exist
             $? | Should -BeTrue
         } #psm1Exists
-        It 'manifest should contain ALZ.psm1' {
+        It 'manifest should contain AMA.ALZ.psm1' {
             $PathToManifest |
-            Should -FileContentMatchExactly "ALZ.psm1"
+            Should -FileContentMatchExactly "AMA.ALZ.psm1"
         } #validPSM1
         It 'should have a matching module name in the manifest' {
             $script:manifestEval.Name | Should -BeExactly $ModuleName

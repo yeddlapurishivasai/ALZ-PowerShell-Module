@@ -1,7 +1,7 @@
 # #-------------------------------------------------------------------------
 # Set-Location -Path $PSScriptRoot
 # #-------------------------------------------------------------------------
-# $ModuleName = 'ALZ'
+# $ModuleName = 'AMA.ALZ'
 # #-------------------------------------------------------------------------
 # #if the module is already in memory, remove it
 # Get-Module $ModuleName | Remove-Module -Force
