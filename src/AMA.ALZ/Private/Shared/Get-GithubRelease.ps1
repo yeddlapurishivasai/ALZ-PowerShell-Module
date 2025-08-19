@@ -45,7 +45,10 @@ function Get-GithubRelease {
         $moduleTargetFolder,
 
         [Parameter(Mandatory = $false, HelpMessage = "The name of the release artifact in the target release. Defaults to standard release zip.")]
-        $releaseArtifactName = ""
+        $releaseArtifactName = "",
+
+        [Parameter(Mandatory = $false, HelpMessage = "The GitHub token to use for authentication.")]
+        [string] $githubToken
     )
 
     $parentDirectory = $targetDirectory
@@ -62,7 +65,13 @@ function Get-GithubRelease {
         $repoReleaseUrl = "https://api.github.com/repos/$repoOrgPlusRepo/releases/tags/$release"
     }
 
-    $releaseData = Invoke-RestMethod $repoReleaseUrl -SkipHttpErrorCheck -StatusCodeVariable "statusCode"
+    # Prepare headers for authentication if token is provided
+    $headers = @{}
+    if (-not [string]::IsNullOrWhiteSpace($githubToken)) {
+        $headers['Authorization'] = "Bearer $githubToken"
+    }
+
+    $releaseData = Invoke-RestMethod $repoReleaseUrl -Headers $headers -SkipHttpErrorCheck -StatusCodeVariable "statusCode"
 
     Write-Verbose "Status code: $statusCode"
 
@@ -74,7 +83,7 @@ function Get-GithubRelease {
     # Handle transient errors like throttling
     if($statusCode -ge 400 -and $statusCode -le 599) {
         Write-InformationColored "Retrying as got the Status Code $statusCode, which may be a transient error." -ForegroundColor Yellow -InformationAction Continue
-        $releaseData = Invoke-RestMethod $repoReleaseUrl -RetryIntervalSec 3 -MaximumRetryCount 100
+        $releaseData = Invoke-RestMethod $repoReleaseUrl -Headers $headers -RetryIntervalSec 3 -MaximumRetryCount 100
     }
 
     if($statusCode -ne 200) {

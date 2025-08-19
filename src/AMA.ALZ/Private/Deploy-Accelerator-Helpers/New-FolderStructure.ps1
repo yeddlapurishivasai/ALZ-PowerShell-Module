@@ -23,7 +23,10 @@ function New-FolderStructure {
         [string] $overrideSourceDirectoryPath = "",
 
         [Parameter(Mandatory = $false)]
-        [switch] $replaceFiles
+        [switch] $replaceFiles,
+
+        [Parameter(Mandatory = $false)]
+        [string] $githubToken
     )
 
     if ($PSCmdlet.ShouldProcess("ALZ-Terraform module configuration", "modify")) {
@@ -51,7 +54,7 @@ function New-FolderStructure {
             }
 
         } else {
-            $releaseTag = Get-GithubRelease -githubRepoUrl $url -targetDirectory $targetDirectory -moduleSourceFolder $sourceFolder -moduleTargetFolder $targetFolder -release $release -releaseArtifactName $releaseArtifactName
+            $releaseTag = Get-GithubRelease -githubRepoUrl $url -targetDirectory $targetDirectory -moduleSourceFolder $sourceFolder -moduleTargetFolder $targetFolder -release $release -releaseArtifactName $releaseArtifactName -githubToken $github_token
             $path = Join-Path $targetDirectory $targetFolder $releaseTag
         }
 

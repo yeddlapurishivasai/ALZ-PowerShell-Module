@@ -193,7 +193,16 @@ function New-Platform-Landing-Zone {
         )]
         [Alias("zs")]
         [Alias("availabilityZonesSupport")]
-        [PSCustomObject] $zones_support = $null
+        [PSCustomObject] $zones_support = $null,
+
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = "[OPTIONAL] The GitHub token to use for authentication."
+        )]
+        [Alias("gt")]
+        [Alias("githubToken")]
+        [string] $github_token = ""
+
     )
 
     $ProgressPreference = "SilentlyContinue"
@@ -277,7 +286,6 @@ function New-Platform-Landing-Zone {
         $bootstrapTargetFolder = "bootstrap"
 
         Write-InformationColored "Checking and Downloading the bootstrap module..." -ForegroundColor Green -NewLineBefore -InformationAction Continue
-
         $versionAndPath = New-ModuleSetup `
             -targetDirectory $inputConfig.output_folder_path.Value `
             -targetFolder $bootstrapTargetFolder `
@@ -287,7 +295,8 @@ function New-Platform-Landing-Zone {
             -releaseArtifactName $inputConfig.bootstrap_module_release_artifact_name.Value `
             -moduleOverrideFolderPath $inputConfig.bootstrap_module_override_folder_path.Value `
             -skipInternetChecks $inputConfig.skip_internet_checks.Value `
-            -replaceFile:$inputConfig.replace_files.Value
+            -replaceFile:$inputConfig.replace_files.Value `
+            -githubToken:$inputConfig.github_token.Value
 
         $bootstrapReleaseTag = $versionAndPath.releaseTag
         $bootstrapPath = $versionAndPath.path
@@ -347,7 +356,8 @@ function New-Platform-Landing-Zone {
                 -releaseArtifactName $starterReleaseArtifactName `
                 -moduleOverrideFolderPath $inputConfig.starter_module_override_folder_path.Value `
                 -skipInternetChecks $inputConfig.skip_internet_checks.Value `
-                -replaceFile:$inputConfig.replace_files.Value
+                -replaceFile:$inputConfig.replace_files.Value `
+                -githubToken:$inputConfig.github_token.Value
 
             $starterReleaseTag = $versionAndPath.releaseTag
             $starterPath = $versionAndPath.path

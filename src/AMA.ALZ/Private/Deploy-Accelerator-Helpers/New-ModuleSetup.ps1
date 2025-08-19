@@ -19,7 +19,9 @@ function New-ModuleSetup {
         [Parameter(Mandatory = $false)]
         [bool]$skipInternetChecks,
         [Parameter(Mandatory = $false)]
-        [switch]$replaceFiles
+        [switch]$replaceFiles,
+        [Parameter(Mandatory = $false)]
+        [string] $githubToken
     )
 
     if ($PSCmdlet.ShouldProcess("Check and get module", "modify")) {
@@ -36,7 +38,8 @@ function New-ModuleSetup {
                 -targetFolder $targetFolder `
                 -sourceFolder $sourceFolder `
                 -overrideSourceDirectoryPath $moduleOverrideFolderPath `
-                -replaceFiles:$replaceFiles.IsPresent
+                -replaceFiles:$replaceFiles.IsPresent `
+                githubToken:$githubToken
         }
         return $versionAndPath
     }
