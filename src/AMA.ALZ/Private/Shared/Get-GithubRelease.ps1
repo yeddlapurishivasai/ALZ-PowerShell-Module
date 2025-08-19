@@ -1,7 +1,7 @@
 ####################################
 # Get-GithubRelease.ps1 #
 ####################################
-# Version: 0.1.0
+# Version: 0.2.0
 # Based on Invoke-GitHubReleaseFetcher by Jack Tracey:
 # Source: https://github.com/jtracey93/PublicScripts/blob/master/GitHub/PowerShell/Invoke-GitHubReleaseFetcher.ps1
 
@@ -14,7 +14,7 @@ Checks for the releases of a GitHub repository and downloads the latest release 
 .EXAMPLE
 
 .NOTES
-# Release notes 16/03/2023 - V0.1.0:
+# Release notes 16/03/2023 - V0.2.0:
 - Initial release.
 #>
 
