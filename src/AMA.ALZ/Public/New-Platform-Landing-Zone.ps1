@@ -197,7 +197,7 @@ function New-Platform-Landing-Zone {
 
         [Parameter(
             Mandatory = $false,
-            HelpMessage = "[OPTIONAL] The GitHub token to use for authentication."
+            HelpMessage = "[OPTIONAL] The GitHub token to use for authentication. WARNING: This value will be masked in logs for security."
         )]
         [Alias("gt")]
         [Alias("githubToken")]
@@ -278,7 +278,7 @@ function New-Platform-Landing-Zone {
             Write-InformationColored "Although you have selected Bicep, the Accelerator leverages the Terraform tool to bootstrap your Version Control System and Azure. This is will not impact your choice of Bicep post this initial bootstrap. Please refer to our documentation for further details..." -ForegroundColor Yellow -InformationAction Continue
         }
 
-        Write-Verbose "Initial Input config: $(ConvertTo-Json $inputConfig -Depth 100)"
+        Write-Verbose "Initial Input config: $(ConvertTo-SafeLogString $inputConfig)"
 
         # Download the bootstrap modules
         $bootstrapReleaseTag = ""

@@ -8,7 +8,24 @@ function Convert-ParametersToInputConfig {
 
     foreach ($parameterKey in $parameters.Keys) {
         $parameter = $parameters[$parameterKey]
-        Write-Verbose "Processing parameter $parameterKey $(ConvertTo-Json $parameter -Depth 100)"
+
+        # Create a safe copy of the parameter for logging
+        $safeParameter = $parameter.PSObject.Copy()
+
+        # Check if this parameter contains sensitive information and mask it
+        $isSensitive = $false
+        foreach ($sensitivePattern in @('github_token', 'githubToken', 'token', 'password', 'secret', 'key', 'credential', 'auth')) {
+            if ($parameterKey -like "*$sensitivePattern*") {
+                $isSensitive = $true
+                break
+            }
+        }
+
+        if ($isSensitive -and $null -ne $safeParameter.value -and $safeParameter.value -ne "") {
+            $safeParameter.value = "***MASKED***"
+        }
+
+        Write-Verbose "Processing parameter $parameterKey $(ConvertTo-Json $safeParameter -Depth 100)"
 
         foreach ($parameterAlias in $parameter.aliases) {
             if ($inputConfig.PsObject.Properties.Name -contains $parameterAlias) {
@@ -36,7 +53,17 @@ function Convert-ParametersToInputConfig {
             if ($parameter.type -eq "SwitchParameter") {
                 $variableValue = [bool]::Parse($variableValue)
             }
-            Write-Verbose "Adding parameter $parameterKey with value $variableValue"
+
+            # Use safe logging to prevent sensitive data exposure
+            $maskedValue = $variableValue
+            foreach ($sensitivePattern in @('github_token', 'githubToken', 'token', 'password', 'secret', 'key', 'credential', 'auth')) {
+                if ($parameterKey -like "*$sensitivePattern*" -and $null -ne $variableValue -and $variableValue -ne "") {
+                    $maskedValue = "***MASKED***"
+                    break
+                }
+            }
+            Write-Verbose "Adding parameter $parameterKey with value $maskedValue"
+
             $inputConfig | Add-Member -NotePropertyName $parameterKey -NotePropertyValue @{
                 Value  = $variableValue
                 Source = "parameter"

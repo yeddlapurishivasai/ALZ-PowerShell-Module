@@ -177,7 +177,7 @@ function New-Bootstrap2 {
             }
         }
 
-        Write-Verbose "Final Input config: $(ConvertTo-Json $inputConfig -Depth 100)"
+        Write-Verbose "Final Input config: $(ConvertTo-SafeLogString $inputConfig)"
 
         # Getting the input for the bootstrap module
         Write-Verbose "Setting the configuration for the bootstrap module..."
@@ -192,7 +192,7 @@ function New-Bootstrap2 {
             -inputConfig $inputConfig `
             -copyEnvVarToConfig
 
-        Write-Verbose "Final Starter Parameters: $(ConvertTo-Json $starterParameters -Depth 100)"
+        Write-Verbose "Final Starter Parameters: $(ConvertTo-SafeLogString $starterParameters)"
 
         # Creating the tfvars files for the bootstrap and starter module
         $tfVarsFileName = "terraform.tfvars.json"
